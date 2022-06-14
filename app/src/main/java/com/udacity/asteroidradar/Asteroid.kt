@@ -3,6 +3,8 @@ package com.udacity.asteroidradar
 import android.os.Parcelable
 import com.udacity.asteroidradar.db.DbModelAsteroid
 import kotlinx.android.parcel.Parcelize
+import java.sql.Date
+import java.time.LocalDate
 
 @Parcelize
 data class Asteroid(
@@ -16,7 +18,7 @@ data class Asteroid(
     fun asDbModel() = DbModelAsteroid(
         id = id,
         codename = codename,
-        closeApproachDate = closeApproachDate,
+        closeApproachDate = Date.valueOf(closeApproachDate),
         absoluteMagnitude = absoluteMagnitude,
         estimatedDiameter = estimatedDiameter,
         relativeVelocity = relativeVelocity,

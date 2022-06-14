@@ -28,9 +28,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:contentDescription="@{viewModel.pictureOfDay.title}"
+                android:contentDescription="@{viewModel.pictureOfDayDescription}"
                 android:scaleType="centerCrop"
-                app:imgUrl="@{viewModel.pictureOfDay.url}"
+                app:imgUrl="@{viewModel.pictureOfDayUrl}"
                 app:srcCompat="@drawable/placeholder_picture_of_day" />
 
             <TextView
@@ -50,6 +50,7 @@
             android:id="@+id/asteroid_recycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:clipToPadding="false"
             app:asteroidItems="@{viewModel.asteroids}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

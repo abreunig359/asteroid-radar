@@ -3,13 +3,15 @@ package com.udacity.asteroidradar.db
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.udacity.asteroidradar.Asteroid
+import java.sql.Date
+import java.time.LocalDate
 
 @Entity
 data class DbModelAsteroid(
     @PrimaryKey
     val id: Long,
     val codename: String,
-    val closeApproachDate: String,
+    val closeApproachDate: Date,
     val absoluteMagnitude: Double,
     val estimatedDiameter: Double,
     val relativeVelocity: Double,
@@ -20,7 +22,7 @@ data class DbModelAsteroid(
     fun asDomainModel() = Asteroid(
         id = id,
         codename = codename,
-        closeApproachDate = closeApproachDate,
+        closeApproachDate = closeApproachDate.toString(),
         absoluteMagnitude = absoluteMagnitude,
         estimatedDiameter = estimatedDiameter,
         relativeVelocity = relativeVelocity,
