@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.Constants.DEFAULT_END_DATE_DAYS
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.api.AsteroidApi
 import com.udacity.asteroidradar.db.getDatabase
@@ -20,13 +21,11 @@ class MainViewModel(private val application: Application) : ViewModel() {
 
     private val asteroidsRepository = AsteroidsRepository(getDatabase(application).asteroidDao)
 
-    // A null value for a certain date means it can be ignored.
-    // If both values are null, all asteroids stored in DB should be fetched.
-    private val startEndDateForAsteroidRepoFetch = MutableLiveData<Pair<LocalDate?, LocalDate?>>()
+    private val endDate = MutableLiveData<LocalDate?>()
 
     val asteroids: LiveData<List<Asteroid>> =
-        Transformations.switchMap(startEndDateForAsteroidRepoFetch) { (startDate, endDate) ->
-            asteroidsRepository.getAsteroids(startDate, endDate)
+        Transformations.switchMap(endDate) { endDate ->
+            asteroidsRepository.getAsteroids(endDate)
         }
 
     private val _pictureOfDayDescription = MutableLiveData<String>()
@@ -39,10 +38,9 @@ class MainViewModel(private val application: Application) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            asteroidsRepository.updateAsteroids()
             getPictureOfTheDay()
         }
-        showTodaysAsteroids()
+        showNextWeekAsteroids()
     }
 
     private suspend fun getPictureOfTheDay() {
@@ -58,16 +56,22 @@ class MainViewModel(private val application: Application) : ViewModel() {
 
     fun showNextWeekAsteroids() {
         val now = LocalDate.now()
-        startEndDateForAsteroidRepoFetch.value = Pair(now, now.plusDays(7))
+        viewModelScope.launch {
+            asteroidsRepository.updateAsteroids(endDate = now.plusDays(DEFAULT_END_DATE_DAYS))
+            endDate.value = now.plusDays(DEFAULT_END_DATE_DAYS)
+        }
     }
 
     fun showTodaysAsteroids() {
         val now = LocalDate.now()
-        startEndDateForAsteroidRepoFetch.value = Pair(now, now)
+        viewModelScope.launch {
+            asteroidsRepository.updateAsteroids()
+            endDate.value = now
+        }
     }
 
     fun showAllSavedAsteroids() {
-        startEndDateForAsteroidRepoFetch.value = Pair(null, null)
+        endDate.value = null
     }
 
     class Factory(private val app: Application) : ViewModelProvider.Factory {

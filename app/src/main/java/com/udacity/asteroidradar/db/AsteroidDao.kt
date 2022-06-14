@@ -20,11 +20,9 @@ interface AsteroidDao {
         endDate: Date
     ): LiveData<List<DbModelAsteroid>>
 
-    @Query("select * from dbmodelasteroid where closeApproachDate >= :startDate order by  closeApproachDate ASC")
-    fun getAllFromStartDate(
-        startDate: Date = Date.valueOf(LocalDate.now().toString()),
-    ): LiveData<List<DbModelAsteroid>>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(asteroids: List<DbModelAsteroid>)
+
+    @Query("delete from dbmodelasteroid where closeApproachDate < :startDate")
+    fun deleteBeforeDate(startDate: Date)
 }

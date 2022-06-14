@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginBottom="@dimen/margin_default"
         android:layout_marginEnd="@dimen/margin_default">
 
         <TextView
@@ -23,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{asteroid.codename}"
-            android:textStyle="bold"
+            android:textSize="@dimen/text_size_item_title"
             android:textColor="@color/default_text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:text="@{asteroid.closeApproachDate}"
             android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_item_subtitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/asteroid_codename"
             tools:text="2022-06-14" />

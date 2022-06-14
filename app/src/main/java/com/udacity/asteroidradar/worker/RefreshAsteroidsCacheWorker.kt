@@ -20,6 +20,7 @@ class RefreshAsteroidsCacheWorker(appContext: Context, params: WorkerParameters)
     override suspend fun doWork(): Result {
         return try {
             repository.updateAsteroids()
+            repository.deleteAsteroidsBeforeToday()
             Result.success()
         } catch (e: HttpException) {
             Result.retry()
