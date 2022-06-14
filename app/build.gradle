@@ -16,7 +16,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    // Simple solution so I don't have to check in the Nasa API key for this App in source control
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
     buildTypes {
+        debug {
+            buildConfigField("String", "NASA_API_KEY",  localProperties['nasaApiKey'])
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -54,6 +62,10 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
+   // implementation "com.squareup.retrofit2:converter-gson:$version_retrofit"
+
+    // for request logging
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 

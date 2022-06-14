@@ -28,3 +28,7 @@ data class DbModelAsteroid(
         isPotentiallyHazardous = isPotentiallyHazardous,
     )
 }
+
+fun List<DbModelAsteroid>.asDomainModel(): List<Asteroid> = map {
+    it.asDomainModel()
+}
