@@ -10,7 +10,7 @@ import com.udacity.asteroidradar.databinding.FragmentMainBinding
 class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+        ViewModelProvider(this)[MainViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +21,10 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
 
         setHasOptionsMenu(true)
+
+        binding.asteroidRecycler.adapter = AsteroidItemAdapter{
+            // TODO add onClickListener
+        }
 
         return binding.root
     }
