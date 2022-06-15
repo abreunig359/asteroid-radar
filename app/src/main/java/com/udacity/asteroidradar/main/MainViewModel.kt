@@ -46,11 +46,14 @@ class MainViewModel(private val application: Application) : ViewModel() {
     private suspend fun getPictureOfTheDay() {
         try {
             val pictureOfDay = AsteroidApi.retrofitService.getPictureOfTheDay()
-            _pictureOfDayDescription.value = pictureOfDay.title
-            _pictureOfDayUrl.value = pictureOfDay.url
+            val descriptionFormat =
+                application.getString(R.string.nasa_picture_of_day_content_description_format)
+            _pictureOfDayDescription.postValue(String.format(descriptionFormat, pictureOfDay.title))
+            _pictureOfDayUrl.postValue(pictureOfDay.url)
         } catch (e: Exception) {
-            _pictureOfDayDescription.value =
+            val placeholderString =
                 application.getString(R.string.this_is_nasa_s_picture_of_day_showing_nothing_yet)
+            _pictureOfDayDescription.postValue(placeholderString)
         }
     }
 
@@ -58,15 +61,16 @@ class MainViewModel(private val application: Application) : ViewModel() {
         val now = LocalDate.now()
         viewModelScope.launch {
             asteroidsRepository.updateAsteroids(endDate = now.plusDays(DEFAULT_END_DATE_DAYS))
-            endDate.value = now.plusDays(DEFAULT_END_DATE_DAYS)
+            // using post value, since setting the end date after the coroutine produced ugly flickering on the screen
+            endDate.postValue(now.plusDays(DEFAULT_END_DATE_DAYS))
         }
     }
 
-    fun showTodaysAsteroids() {
+    fun showTodayAsteroids() {
         val now = LocalDate.now()
         viewModelScope.launch {
             asteroidsRepository.updateAsteroids()
-            endDate.value = now
+            endDate.postValue(now)
         }
     }
 

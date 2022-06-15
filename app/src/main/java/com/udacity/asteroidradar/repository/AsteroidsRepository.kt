@@ -39,7 +39,7 @@ class AsteroidsRepository(private val asteroidDao: AsteroidDao) {
     }
 
     private fun getAllStoredAsteroids(): LiveData<List<Asteroid>> {
-        return Transformations.map(asteroidDao.getAllSortedByDateAsc()) {
+        return Transformations.map(asteroidDao.getAllStartingToday()) {
             it.asDomainModel()
         }
     }
