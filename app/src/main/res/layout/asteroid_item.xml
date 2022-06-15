@@ -17,26 +17,25 @@
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginTop="@dimen/margin_default"
         android:layout_marginEnd="@dimen/margin_default"
-        android:layout_marginBottom="@dimen/margin_default">
+        android:layout_marginBottom="@dimen/margin_default"
+        android:background="@color/app_background">
 
         <TextView
             android:id="@+id/asteroid_codename"
+            style="@style/ItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{asteroid.codename}"
-            android:textColor="@color/default_text_color"
-            android:textSize="@dimen/text_size_item_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="(2015 XK351)" />
 
         <TextView
             android:id="@+id/asteroid_close_approach_date"
+            style="@style/ItemSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{asteroid.closeApproachDate}"
-            android:textColor="@color/text_grey"
-            android:textSize="@dimen/text_size_item_subtitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/asteroid_codename"
             tools:text="2022-06-14" />

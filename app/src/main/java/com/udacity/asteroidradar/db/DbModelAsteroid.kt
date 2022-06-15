@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.udacity.asteroidradar.Asteroid
 import java.sql.Date
-import java.time.LocalDate
 
 @Entity
 data class DbModelAsteroid(

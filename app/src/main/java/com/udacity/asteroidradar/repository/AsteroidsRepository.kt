@@ -8,12 +8,11 @@ import com.udacity.asteroidradar.api.AsteroidApi
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
 import com.udacity.asteroidradar.db.AsteroidDao
 import com.udacity.asteroidradar.db.asDomainModel
+import com.udacity.asteroidradar.utils.toSqlDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
-import java.lang.Exception
 import java.time.LocalDate
-import com.udacity.asteroidradar.utils.toSqlDate
 
 class AsteroidsRepository(private val asteroidDao: AsteroidDao) {
 

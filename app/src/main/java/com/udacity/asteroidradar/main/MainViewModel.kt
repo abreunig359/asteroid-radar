@@ -14,13 +14,13 @@ import com.udacity.asteroidradar.api.AsteroidApi
 import com.udacity.asteroidradar.db.getDatabase
 import com.udacity.asteroidradar.repository.AsteroidsRepository
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.time.LocalDate
 
 class MainViewModel(private val application: Application) : ViewModel() {
 
     private val asteroidsRepository = AsteroidsRepository(getDatabase(application).asteroidDao)
 
+    // LocalDate is nullable because a null value is interpreted as "no end date"
     private val endDate = MutableLiveData<LocalDate?>()
 
     val asteroids: LiveData<List<Asteroid>> =

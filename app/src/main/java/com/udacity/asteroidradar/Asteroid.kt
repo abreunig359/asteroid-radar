@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.udacity.asteroidradar.db.DbModelAsteroid
 import kotlinx.android.parcel.Parcelize
 import java.sql.Date
-import java.time.LocalDate
 
 @Parcelize
 data class Asteroid(
