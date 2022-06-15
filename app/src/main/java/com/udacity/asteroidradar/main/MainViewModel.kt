@@ -37,13 +37,10 @@ class MainViewModel(private val application: Application) : ViewModel() {
         get() = _pictureOfDayUrl
 
     init {
-        viewModelScope.launch {
-            getPictureOfTheDay()
-        }
         showNextWeekAsteroids()
     }
 
-    private suspend fun getPictureOfTheDay() {
+    fun getPictureOfTheDay() = viewModelScope.launch {
         try {
             val pictureOfDay = AsteroidApi.retrofitService.getPictureOfTheDay()
             val descriptionFormat =

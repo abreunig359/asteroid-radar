@@ -36,6 +36,8 @@ class MainFragment : Fragment() {
             findNavController().navigate(MainFragmentDirections.actionShowDetail(asteroid))
         }
 
+        viewModel.getPictureOfTheDay()
+
         return binding.root
     }
 
